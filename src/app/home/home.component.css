@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+.hide {
+  display: none;
+}
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+  font-style: italic;
+}
+
+/*filter search controlls */
+.search-div {
+  margin: 10px;
+}
+.search-form-field {
+  width: 30%;
+  margin-left: 10px;
+  border-radius: 5px;
+}

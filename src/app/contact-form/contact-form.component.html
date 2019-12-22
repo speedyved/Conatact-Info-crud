@@ -1,0 +1,80 @@
+<mat-toolbar>
+  <span>{{
+    contactService.form.controls["$key"].value
+      ? "Update Contact list"
+      : "Create New List"
+  }}</span>
+  <span class="fill-remaining-space"></span>
+  <button
+    class="mat-dialog-close"
+    mat-stroked-button
+    (click)="onClose()"
+    tabindex="-1"
+  >
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+<form
+  [formGroup]="contactService.form"
+  class="normal-form"
+  (submit)="onSubmit($event)"
+>
+  <mat-grid-list cols="1" rowHeight="550px">
+    <mat-grid-tile>
+      <div class="controls-container">
+        <input type="hidden" formControlName="$key" />
+        <mat-form-field>
+          <input formControlName="fName" matInput placeholder="First Name *" />
+          <mat-error>This field is mandatory</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="lName" matInput placeholder="Last Name" />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            formControlName="email"
+            matInput
+            placeholder="email*"
+            [email]="true"
+          />
+          <mat-error>Invalid Email Address</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="phNo" matInput placeholder="Phone no.*" />
+          <mat-error
+            *ngIf="contactService.form.controls['phNo'].errors?.required"
+            >This field is mandatory</mat-error
+          >
+          <mat-error
+            *ngIf="contactService.form.controls['phNo'].errors?.minlength"
+            >Minimum 10 numbers are needed</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="status" matInput placeholder="Status" />
+        </mat-form-field>
+
+        <div class="button-row">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="contactService.form.invalid"
+            type="submit"
+          >
+            {{
+              contactService.form.controls["$key"].value ? "Update" : "Sumbit"
+            }}
+          </button>
+          <button
+            mat-raised-button
+            color="white"
+            class="margin-5px"
+            (click)="onClear()"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
