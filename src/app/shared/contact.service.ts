@@ -1,10 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  FormGroup,
-  FormControl,
-  EmailValidator,
-  Validators
-} from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AngularFireDatabase, AngularFireList } from "angularfire2/database";
 
 @Injectable({
@@ -18,7 +13,11 @@ export class ContactService {
     fName: new FormControl("", Validators.required),
     lName: new FormControl(""),
     email: new FormControl("", Validators.required),
-    phNo: new FormControl("", [Validators.required, Validators.minLength(10)]),
+    phNo: new FormControl("", [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10)
+    ]),
     status: new FormControl(true)
   });
 
@@ -35,12 +34,10 @@ export class ContactService {
 
   getContactList() {
     this.contactList = this.firebase.list("contactList");
-    console.log("from get contact list:", this.contactList);
     return this.contactList.snapshotChanges();
   }
 
   addContact(contact) {
-    console.log(contact);
     this.contactList.push({
       fName: contact.fName,
       lName: contact.lName,

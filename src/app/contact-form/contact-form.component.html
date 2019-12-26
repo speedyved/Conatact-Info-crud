@@ -40,18 +40,32 @@
           <mat-error>Invalid Email Address</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="phNo" matInput placeholder="Phone no.*" />
+          <input
+            type="number"
+            formControlName="phNo"
+            matInput
+            placeholder="Phone no.*"
+          />
           <mat-error
             *ngIf="contactService.form.controls['phNo'].errors?.required"
             >This field is mandatory</mat-error
           >
           <mat-error
             *ngIf="contactService.form.controls['phNo'].errors?.minlength"
-            >Minimum 10 numbers are needed</mat-error
+          >
+            Please enter 10 numbers</mat-error
           >
         </mat-form-field>
         <mat-form-field>
-          <input formControlName="status" matInput placeholder="Status" />
+          <select
+            formControlName="status"
+            matNativeControl
+            required
+            placeholder="Status"
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
         </mat-form-field>
 
         <div class="button-row">

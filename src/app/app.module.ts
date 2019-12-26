@@ -37,7 +37,9 @@ import { environment } from "../environments/environment";
     material.MatIconModule,
     material.MatPaginatorModule,
     material.MatSortModule,
-    material.MatDialogModule
+    material.MatDialogModule,
+    material.MatSnackBarModule,
+    material.MatSelectModule
   ],
   providers: [ContactService],
   bootstrap: [AppComponent],

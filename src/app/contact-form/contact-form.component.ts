@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ContactService } from "../shared/contact.service";
-import { ELEMENT_DATA } from "../home/home.model";
 import { MatDialogRef } from "@angular/material";
+import { NotificationService } from "../shared/notification.service";
 
 @Component({
   selector: "app-contact-form",
@@ -11,15 +11,12 @@ import { MatDialogRef } from "@angular/material";
 export class ContactFormComponent implements OnInit {
   constructor(
     private contactService: ContactService,
-    private dialogRef: MatDialogRef<ContactFormComponent>
+    private dialogRef: MatDialogRef<ContactFormComponent>,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
     this.contactService.getContactList();
-    console.log(
-      "contact form component inside : ",
-      this.contactService.getContactList()
-    );
   }
   onClear() {
     this.contactService.form.reset();
@@ -28,16 +25,16 @@ export class ContactFormComponent implements OnInit {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log("inside onSubmit:", this.contactService.form.value);
     if (this.contactService.form.valid) {
       if (this.contactService.form.get("$key").value) {
         this.contactService.updateContact(this.contactService.form.value);
+        this.notificationService.success("Contact Updated Successfully");
       } else {
         this.contactService.addContact(this.contactService.form.value);
+        this.notificationService.success("Contact Created Successfully");
       }
       this.contactService.form.reset();
       this.contactService.initializeFormGroup();
-      console.log("inside onSubmit:", this.contactService.form.value);
       this.onClose();
     }
   }
